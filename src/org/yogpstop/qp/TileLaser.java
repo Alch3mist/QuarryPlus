@@ -25,6 +25,7 @@ import static buildcraft.BuildCraftCore.actionOff;
 import buildcraft.api.core.Position;
 import buildcraft.api.gates.IAction;
 import buildcraft.api.gates.IActionReceptor;
+import buildcraft.api.power.ILaserTarget;
 import buildcraft.api.power.IPowerReceptor;
 import buildcraft.api.power.PowerHandler;
 import buildcraft.api.power.PowerHandler.PowerReceiver;
@@ -32,7 +33,6 @@ import buildcraft.api.power.PowerHandler.Type;
 import buildcraft.core.EntityEnergyLaser;
 import buildcraft.core.IMachine;
 import buildcraft.core.triggers.ActionMachineControl;
-import buildcraft.silicon.ILaserTarget;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -114,7 +114,7 @@ public class TileLaser extends TileEntity implements IPowerReceptor, IActionRece
 	protected boolean isValidTable() {
 		if (this.laserTargets.size() == 0) return false;
 		for (ILaserTarget lt : this.laserTargets)
-			if (lt == null || lt.isInvalidTarget() || !lt.hasCurrentWork()) return false;
+			if (lt == null || lt.isInvalidTarget() || !lt.requiresLaserEnergy()) return false;
 		return true;
 	}
 
@@ -159,7 +159,7 @@ public class TileLaser extends TileEntity implements IPowerReceptor, IActionRece
 					TileEntity tile = this.worldObj.getBlockTileEntity(x, y, z);
 					if (tile instanceof ILaserTarget) {
 						ILaserTarget table = (ILaserTarget) tile;
-						if (table.hasCurrentWork() && !table.isInvalidTarget()) {
+						if (table.requiresLaserEnergy() && !table.isInvalidTarget()) {
 							this.laserTargets.add(table);
 						}
 					}

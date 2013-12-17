@@ -1,0 +1,3 @@
+[submodule "UniversalBuildScript"]
+	path = UniversalBuildScript
+	url = https://github.com/denoflionsx/UniversalBuildScript.git

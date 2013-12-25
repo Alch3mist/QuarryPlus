@@ -11,6 +11,7 @@
     </target>
 	
 	<target name="-postgradle">
+		<denLib.install/>
 		<util.copyAsAPI dir="${download.dir}/BuildCraft"/>
 		<util.copyAsAPI dir="${download.dir}/Forestry"/>
 	</target>
